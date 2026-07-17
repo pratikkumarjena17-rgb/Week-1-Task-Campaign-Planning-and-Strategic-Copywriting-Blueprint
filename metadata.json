@@ -1,0 +1,6 @@
+{
+  "name": "Campaign Blueprint Generator",
+  "description": "An AI-powered tool to generate comprehensive campaign strategies and copywriting blueprints.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
