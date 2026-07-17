@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Markdown from 'react-markdown';
-import { Download } from 'lucide-react';
+import { Download, Printer, Copy, Check } from 'lucide-react';
 
 interface BlueprintDocumentProps {
   content: string;
@@ -8,6 +8,8 @@ interface BlueprintDocumentProps {
 }
 
 export default function BlueprintDocument({ content, productName }: BlueprintDocumentProps) {
+  const [isCopied, setIsCopied] = useState(false);
+
   const downloadDoc = () => {
     // Basic HTML wrapper for MS Word compatibility
     const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
@@ -44,26 +46,58 @@ export default function BlueprintDocument({ content, productName }: BlueprintDoc
     const fileDownload = document.createElement("a");
     document.body.appendChild(fileDownload);
     fileDownload.href = source;
-    fileDownload.download = `${productName.replace(/\\s+/g, '_')}_Blueprint.doc`;
+    fileDownload.download = `${productName.replace(/\s+/g, '_')}_Blueprint.doc`;
     fileDownload.click();
     document.body.removeChild(fileDownload);
   };
 
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="flex-1 bg-white shadow-xl rounded-sm border border-slate-300 flex flex-col">
+    <div className="flex-1 bg-white shadow-xl rounded-sm border border-slate-300 flex flex-col print:shadow-none print:border-none">
       <div className="p-8 md:p-12 h-full flex flex-col">
         <div className="flex justify-between items-start mb-4">
-          <p className="text-xs font-bold text-slate-400 tracking-[0.2em]">STRATEGIC DOCUMENT v1.0</p>
-          <button
-            onClick={downloadDoc}
-            className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            EXPORT .DOC
-          </button>
+          <p className="text-xs font-bold text-slate-400 tracking-[0.2em] print:hidden">STRATEGIC DOCUMENT v1.0</p>
+          <div className="flex gap-2 print:hidden">
+            <button
+              onClick={copyToClipboard}
+              className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
+              title="Copy to clipboard"
+            >
+              {isCopied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+              {isCopied ? 'COPIED' : 'COPY'}
+            </button>
+            <button
+              onClick={handlePrint}
+              className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
+              title="Print document"
+            >
+              <Printer className="w-4 h-4" />
+              PRINT
+            </button>
+            <button
+              onClick={downloadDoc}
+              className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              EXPORT .DOC
+            </button>
+          </div>
         </div>
         
-        <div className="prose prose-slate max-w-none w-full prose-headings:font-bold prose-h1:text-3xl prose-h1:font-serif prose-h1:font-black prose-h1:border-b-2 prose-h1:border-slate-800 prose-h1:pb-2 prose-h1:mb-6 prose-h2:text-xl prose-h2:mb-8 prose-h3:text-xs prose-h3:font-bold prose-h3:uppercase prose-h3:text-blue-600 prose-h3:tracking-wider prose-h3:mt-6 prose-h3:mb-2 prose-p:text-sm prose-p:text-slate-700 prose-li:text-sm prose-li:text-slate-700 leading-relaxed">
+        <div className="prose prose-slate max-w-none w-full prose-headings:font-bold prose-h1:text-3xl prose-h1:font-serif prose-h1:font-black prose-h1:border-b-2 prose-h1:border-slate-800 prose-h1:pb-2 prose-h1:mb-6 prose-h2:text-xl prose-h2:mb-8 prose-h3:text-xs prose-h3:font-bold prose-h3:uppercase prose-h3:text-blue-600 prose-h3:tracking-wider prose-h3:mt-6 prose-h3:mb-2 prose-p:text-sm prose-p:text-slate-700 prose-li:text-sm prose-li:text-slate-700 leading-relaxed print:text-black">
           <Markdown>{content}</Markdown>
         </div>
         

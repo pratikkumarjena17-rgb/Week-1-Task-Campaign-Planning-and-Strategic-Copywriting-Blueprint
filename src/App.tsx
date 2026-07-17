@@ -98,7 +98,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
       {/* Header */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0">
+      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 print:hidden">
         <div>
           <h1 className="text-sm font-semibold text-slate-500 uppercase tracking-widest">Campaign Strategist</h1>
           <h2 className="text-xl font-bold">Copywriting Blueprint Generator</h2>
@@ -127,7 +127,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col bg-[#EDF2F7] p-6 overflow-y-auto">
+      <main className="flex-1 flex flex-col bg-[#EDF2F7] p-6 overflow-y-auto print:bg-white print:p-0 print:overflow-visible">
         <div className="max-w-5xl mx-auto w-full">
           <AnimatePresence mode="wait">
             {activeTab === 'demo' ? (
@@ -139,7 +139,7 @@ export default function App() {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              <div className="mb-6">
+              <div className="mb-6 print:hidden">
                 <h2 className="text-xl font-bold tracking-tight text-slate-900">
                   Virtual Copywriting Apprentice Task
                 </h2>
@@ -159,7 +159,7 @@ export default function App() {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              <div className="mb-6">
+              <div className="mb-6 print:hidden">
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
                   AI Blueprint Generator <Sparkles className="w-5 h-5 text-blue-500" />
                 </h2>
@@ -169,7 +169,7 @@ export default function App() {
               </div>
 
               {!generatedContent ? (
-                <div className="bg-white shadow-xl rounded-sm border border-slate-300 p-8 max-w-2xl">
+                <div className="bg-white shadow-xl rounded-sm border border-slate-300 p-8 max-w-2xl print:hidden">
                   <form onSubmit={handleGenerate} className="space-y-6">
                     <div>
                       <label htmlFor="productName" className="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">
@@ -228,7 +228,7 @@ export default function App() {
                 </div>
               ) : (
                 <div className="space-y-6">
-                  <div className="flex justify-end">
+                  <div className="flex justify-end print:hidden">
                     <button
                       onClick={() => setGeneratedContent('')}
                       className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-white shadow-sm transition-colors flex items-center gap-2"
