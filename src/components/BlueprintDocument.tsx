@@ -50,19 +50,32 @@ export default function BlueprintDocument({ content, productName }: BlueprintDoc
   };
 
   return (
-    <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-      <div className="flex items-center justify-between px-8 py-4 border-b border-gray-100 bg-gray-50/50">
-        <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Stakeholder Ready Document</h2>
-        <button
-          onClick={downloadDoc}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors shadow-sm"
-        >
-          <Download className="w-4 h-4" />
-          Download as .DOC
-        </button>
-      </div>
-      <div className="p-8 md:p-12 max-w-4xl mx-auto prose prose-blue prose-headings:font-medium prose-h1:text-3xl prose-h2:text-2xl text-gray-800">
-        <Markdown>{content}</Markdown>
+    <div className="flex-1 bg-white shadow-xl rounded-sm border border-slate-300 flex flex-col">
+      <div className="p-8 md:p-12 h-full flex flex-col">
+        <div className="flex justify-between items-start mb-4">
+          <p className="text-xs font-bold text-slate-400 tracking-[0.2em]">STRATEGIC DOCUMENT v1.0</p>
+          <button
+            onClick={downloadDoc}
+            className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            EXPORT .DOC
+          </button>
+        </div>
+        
+        <div className="prose prose-slate max-w-none w-full prose-headings:font-bold prose-h1:text-3xl prose-h1:font-serif prose-h1:font-black prose-h1:border-b-2 prose-h1:border-slate-800 prose-h1:pb-2 prose-h1:mb-6 prose-h2:text-xl prose-h2:mb-8 prose-h3:text-xs prose-h3:font-bold prose-h3:uppercase prose-h3:text-blue-600 prose-h3:tracking-wider prose-h3:mt-6 prose-h3:mb-2 prose-p:text-sm prose-p:text-slate-700 prose-li:text-sm prose-li:text-slate-700 leading-relaxed">
+          <Markdown>{content}</Markdown>
+        </div>
+        
+        <div className="mt-12 pt-8 border-t border-slate-100">
+          <div className="flex justify-between items-end">
+            <div className="text-[10px] text-slate-400 font-mono">
+              COPYRIGHT &copy; {new Date().getFullYear()} VIRTUAL APPRENTICE PROGRAM<br/>
+              STRATEGIC CONFIDENTIALITY AGREEMENT APPLIES
+            </div>
+            <div className="w-12 h-12 bg-slate-100 rounded-full"></div>
+          </div>
+        </div>
       </div>
     </div>
   );

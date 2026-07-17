@@ -96,55 +96,55 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
-              <FileText className="w-5 h-5 text-white" />
-            </div>
-            <h1 className="font-semibold text-lg tracking-tight">Campaign Strategist</h1>
-          </div>
-          
-          <div className="flex bg-gray-100 p-1 rounded-lg">
-            <button
-              onClick={() => setActiveTab('demo')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
-                activeTab === 'demo' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Demo Task
-            </button>
-            <button
-              onClick={() => setActiveTab('generator')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
-                activeTab === 'generator' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Custom Generator
-            </button>
-          </div>
+      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0">
+        <div>
+          <h1 className="text-sm font-semibold text-slate-500 uppercase tracking-widest">Campaign Strategist</h1>
+          <h2 className="text-xl font-bold">Copywriting Blueprint Generator</h2>
+        </div>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setActiveTab('demo')}
+            className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${
+              activeTab === 'demo'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-200 hover:bg-blue-700'
+                : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            DEMO TASK
+          </button>
+          <button
+            onClick={() => setActiveTab('generator')}
+            className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${
+              activeTab === 'generator'
+                ? 'bg-blue-600 text-white shadow-sm shadow-blue-200 hover:bg-blue-700'
+                : 'border border-slate-200 text-slate-600 hover:bg-slate-50'
+            }`}
+          >
+            CUSTOM GENERATOR
+          </button>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AnimatePresence mode="wait">
-          {activeTab === 'demo' ? (
+      <main className="flex-1 flex flex-col bg-[#EDF2F7] p-6 overflow-y-auto">
+        <div className="max-w-5xl mx-auto w-full">
+          <AnimatePresence mode="wait">
+            {activeTab === 'demo' ? (
             <motion.div
               key="demo"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="space-y-8"
+              className="space-y-6"
             >
-              <div className="max-w-3xl">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              <div className="mb-6">
+                <h2 className="text-xl font-bold tracking-tight text-slate-900">
                   Virtual Copywriting Apprentice Task
                 </h2>
-                <p className="mt-4 text-lg text-gray-600 leading-relaxed">
-                  Here is the completed strategic campaign plan and blueprint for a hypothetical product (Lumina Smart Sleep Mask), ready for stakeholder review. You can download this as a DOC file.
+                <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                  Here is the completed strategic campaign plan and blueprint for a hypothetical product (Lumina Smart Sleep Mask), ready for stakeholder review.
                 </p>
               </div>
               
@@ -157,22 +157,22 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="space-y-8"
+              className="space-y-6"
             >
-              <div className="max-w-3xl">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl flex items-center gap-3">
-                  AI Blueprint Generator <Sparkles className="w-8 h-8 text-blue-500" />
+              <div className="mb-6">
+                <h2 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                  AI Blueprint Generator <Sparkles className="w-5 h-5 text-blue-500" />
                 </h2>
-                <p className="mt-4 text-lg text-gray-600 leading-relaxed">
+                <p className="mt-2 text-sm text-slate-600 leading-relaxed">
                   Provide the details of your hypothetical product or service, and our AI will instantly generate a comprehensive, stakeholder-ready strategic blueprint.
                 </p>
               </div>
 
               {!generatedContent ? (
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 max-w-2xl">
+                <div className="bg-white shadow-xl rounded-sm border border-slate-300 p-8 max-w-2xl">
                   <form onSubmit={handleGenerate} className="space-y-6">
                     <div>
-                      <label htmlFor="productName" className="block text-sm font-medium text-gray-700">
+                      <label htmlFor="productName" className="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">
                         Product or Service Name
                       </label>
                       <input
@@ -181,13 +181,13 @@ export default function App() {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         placeholder="e.g., EcoHydrate Smart Bottle"
-                        className="mt-2 block w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors"
+                        className="mt-1 block w-full rounded-sm border border-slate-300 px-4 py-3 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="productDescription" className="block text-sm font-medium text-gray-700">
+                      <label htmlFor="productDescription" className="block text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">
                         Brief Description
                       </label>
                       <textarea
@@ -195,14 +195,14 @@ export default function App() {
                         value={productDescription}
                         onChange={(e) => setProductDescription(e.target.value)}
                         placeholder="Describe what it does, the main features, and the problem it solves..."
-                        rows={4}
-                        className="mt-2 block w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition-colors resize-none"
+                        rows={5}
+                        className="mt-1 block w-full rounded-sm border border-slate-300 px-4 py-3 text-sm text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors resize-none"
                         required
                       />
                     </div>
 
                     {error && (
-                      <div className="p-4 rounded-lg bg-red-50 text-red-600 text-sm">
+                      <div className="p-4 rounded-sm bg-red-50 text-red-600 text-sm border border-red-200">
                         {error}
                       </div>
                     )}
@@ -210,16 +210,16 @@ export default function App() {
                     <button
                       type="submit"
                       disabled={isGenerating || !productName || !productDescription}
-                      className="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                      className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-sm shadow-blue-200 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                     >
                       {isGenerating ? (
                         <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          Drafting Blueprint...
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          DRAFTING BLUEPRINT...
                         </>
                       ) : (
                         <>
-                          Generate Blueprint
+                          GENERATE BLUEPRINT
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -231,10 +231,10 @@ export default function App() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => setGeneratedContent('')}
-                      className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-2 bg-white px-4 py-2 border border-gray-200 rounded-lg shadow-sm"
+                      className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-white shadow-sm transition-colors flex items-center gap-2"
                     >
                       <LayoutTemplate className="w-4 h-4" />
-                      Create Another
+                      CREATE ANOTHER
                     </button>
                   </div>
                   <BlueprintDocument content={generatedContent} productName={productName} />
@@ -243,6 +243,7 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </main>
     </div>
   );
