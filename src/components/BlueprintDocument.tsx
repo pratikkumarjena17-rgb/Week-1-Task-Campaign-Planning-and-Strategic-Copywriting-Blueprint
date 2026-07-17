@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
-import { Download, Printer, Copy, Check } from 'lucide-react';
+import { Download, Printer, Copy, Check, Mail } from 'lucide-react';
 
 interface BlueprintDocumentProps {
   content: string;
@@ -157,6 +157,12 @@ export default function BlueprintDocument({ content, productName }: BlueprintDoc
     }
   };
 
+  const handleEmailShare = () => {
+    const subject = encodeURIComponent(`Campaign Blueprint: ${productName}`);
+    const body = encodeURIComponent(`Here is the Campaign Blueprint for ${productName}:\n\n${content}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
+
   const getTypographyClasses = () => {
     const base = "prose prose-slate max-w-none w-full prose-p:text-sm prose-p:text-slate-700 prose-li:text-sm prose-li:text-slate-700 leading-relaxed print:text-black";
     
@@ -194,6 +200,14 @@ export default function BlueprintDocument({ content, productName }: BlueprintDoc
             </div>
             <div className="w-px h-6 bg-slate-200 hidden sm:block"></div>
             <div className="flex gap-2">
+              <button
+                onClick={handleEmailShare}
+                className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
+                title="Share via Email"
+              >
+                <Mail className="w-4 h-4" />
+                SHARE
+              </button>
               <button
                 onClick={copyToClipboard}
                 className="px-4 py-2 border border-slate-200 text-slate-600 rounded-md text-xs font-bold hover:bg-slate-50 flex items-center gap-2 transition-colors"
