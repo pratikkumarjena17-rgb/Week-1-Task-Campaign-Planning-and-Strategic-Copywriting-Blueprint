@@ -22,17 +22,29 @@ app.post('/api/generate-blueprint', async (req, res) => {
 Product Name: ${productName}
 Description: ${productDescription}
 
-Your output must include the following sections with clear headings:
-1. Research Findings (Market research, trends)
-2. Target Audience Profiles (Demographics, psychographics)
-3. Competitor Analysis (Review of competitors and positioning)
-4. Creative Direction & Key Messaging (Primary message, tone of voice, narrative)
-5. Recommendations for Content Channels and Formats (Distribution strategies)
+Your output must be a detailed outline covering the following sections with clear headings:
+# Campaign Planning & Strategic Copywriting Blueprint
 
-Ensure the tone is professional, insightful, and ready for stakeholder review. Format the output in clean Markdown. Avoid using HTML tags in the Markdown.`;
+## 1. Research Findings
+* Summarize market research, trends, and competitor activities in clear, concise points.
+
+## 2. Target Audience Profiles
+* Define the target demographic, psychographics, and the means to reach them.
+
+## 3. Competitor Analysis
+* Review of competitors and positioning.
+
+## 4. Creative Direction & Key Messaging
+* Craft a narrative for the campaign.
+* Outline the primary message, secondary messages, and tone of voice.
+
+## 5. Recommendations for Content Channels and Formats
+* Provide strategies for content distribution across channels.
+
+Ensure the document is polished, professional, insightful, and ready for stakeholder review. Format the output in clean Markdown. Avoid using HTML tags in the Markdown. Make sure it's consistent and brand aligned.`;
 
     const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-2.5-pro',
         contents: prompt
     });
 
