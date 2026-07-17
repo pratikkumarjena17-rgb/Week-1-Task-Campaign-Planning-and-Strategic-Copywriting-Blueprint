@@ -160,7 +160,7 @@ export default function BlueprintDocument({ content, productName }: BlueprintDoc
   const handleEmailShare = () => {
     const subject = encodeURIComponent(`Campaign Blueprint: ${productName}`);
     const body = encodeURIComponent(`Here is the Campaign Blueprint for ${productName}:\n\n${content}`);
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:pratikkumarjena17@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const getTypographyClasses = () => {
